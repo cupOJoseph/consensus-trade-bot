@@ -144,7 +144,7 @@ function postTweet(data){
   var ctUrl = "https://consensus-trade-git-experimental.manolingam.vercel.app/market/" + data["marketID"]
   
   //the url to send the post to
-  var postUrl = "https://maker.ifttt.com/trigger/Post_A_Tweet/with/key/bhsXIIDyGULGSiSPMZ7cWSw-vSn3myvzpCfAM3XVQ6c"
+  var postUrl = ""
   
   //console.log()
   var length = textSource.length
@@ -224,7 +224,6 @@ app.post("/QpRQ2ozTMn07RmC0ZMdKVZ7zsQF7uZ", (request, response)  => {
   //Value1 = username
   //Value2 = text
   //Value3 = time
-  //post url = https://maker.ifttt.com/trigger/qhAcrkf8/with/key/bhsXIIDyGULGSiSPMZ7cWSw-vSn3myvzpCfAM3XVQ6c
 });
 
 app.get("/QpRQ2ozTMn07RmC0ZMdKVZ7zsQF7uZ", (request, response)  => {
