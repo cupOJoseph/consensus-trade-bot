@@ -135,6 +135,72 @@ var listener = app.listen(process.env.PORT, () => {
 });
 
 //============== Stream Events =================//
+function postTweet(data){
+  var textSource = data["text"]
+  var username = data["username"]
+  var link = data["link"]
+  var time = data["timestamp"]
+  
+  var ctUrl = "https://consensus-trade-git-experimental.manolingam.vercel.app/market/" + data["marketID"]
+  
+  //the url to send the post to
+  var postUrl = "https://maker.ifttt.com/trigger/Post_A_Tweet/with/key/bhsXIIDyGULGSiSPMZ7cWSw-vSn3myvzpCfAM3XVQ6c"
+  
+  //console.log()
+  var length = textSource.length
+  if(length > 140){
+    textSource = textSource.substr(0,140) + "... "
+  }
+  //Must use these keys 
+  var postBody = {
+    "value1":username,
+    "value2":textSource,
+    "value3":ctUrl
+  }
+  var twitterApiUrl = "https://api.twitter.com/1.1/statuses/update.json";
+  
+  var twitterReplyId = data["link"].slice(data["link"].lastIndexOf('/') + 1);
+  var userString = "@" + username
+  
+  var status =  userString + " Hey! " + userString + " just posted a tweet that will be saved on Consensus Trade. Check out the market for this tweet and stake on it here: " + ctUrl;
+  
+  T.post('statuses/update', { status: status,  "in_reply_to_status_id":twitterReplyId}, function(err, data, response) {
+  console.log(err)
+})
+  
+
+  
+  console.log("== post body to send to twitter ==");
+  console.log(postBody)
+  
+  /*axios.post(postUrl, postBody)
+    .then((res) => {
+        console.log(`Status: ${res.status}`);
+        console.log('Body: ', res.data);
+    }).catch((err) => {
+        console.error(err);
+    });*/ //ifttt post here. but we're using twit now.
+}
+
+function postConclusion(data){
+  var username = data["username"]
+  var link = data["link"]
+  var yays = data["yays"]
+  var nays = data["nays"]
+  
+  var twitterReplyId = data["link"].slice(data["link"].lastIndexOf('/') + 1);
+  var userString = "@" + username
+  
+  var ctUrl = "https://consensus-trade-git-experimental.manolingam.vercel.app/market/" + data["marketID"]
+  
+  var status =  userString + " Looks like " + userString + "'s tweet market on Consensus Trade has been finalized! Check out the final market for this tweet here: " + ctUrl + " \r\nYays: " + yays + "\r\nNays: " + nays;
+  
+  T.post('statuses/update', { status: status,  "in_reply_to_status_id":twitterReplyId}, function(err, data, response) {
+    console.log(err)
+  });
+}
+
+//============== Stream Events =================//
 app.post("/QpRQ2ozTMn07RmC0ZMdKVZ7zsQF7uZ", (request, response)  => {
   console.log("Found a thing!\n")
   console.log(request.body);
