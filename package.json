@@ -11,9 +11,14 @@
   },
   "dependencies": {
     "arweave": "latest",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "sqlite3": "^4.1.1"
+    "smartweave": "^0.4.25",
+    "sqlite3": "^4.1.1",
+    "twit": "^2.2.11",
+    "fs":"latest"
   },
   "engines": {
     "node": "12.x"
